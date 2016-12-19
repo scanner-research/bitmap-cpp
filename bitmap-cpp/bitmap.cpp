@@ -69,20 +69,20 @@ DecodeResult bitmap_decode(const unsigned char* bmp, size_t size,
       //pixel start byte position in the BMP
       unsigned bmpos = pixeloffset + (h - y - 1) * scanlineBytes + numChannels * x;
       //pixel start byte position in the new raw image
-      unsigned newpos = 4 * y * w + 4 * x;
+      unsigned newpos = 3 * y * w + 3 * x;
       if(numChannels == 3)
       {
         output[newpos + 0] = bmp[bmpos + 2]; //R
         output[newpos + 1] = bmp[bmpos + 1]; //G
         output[newpos + 2] = bmp[bmpos + 0]; //B
-        output[newpos + 3] = 255;            //A
+        //output[newpos + 3] = 255;            //A
       }
       else
       {
         output[newpos + 0] = bmp[bmpos + 3]; //R
         output[newpos + 1] = bmp[bmpos + 2]; //G
         output[newpos + 2] = bmp[bmpos + 1]; //B
-        output[newpos + 3] = bmp[bmpos + 0]; //A
+        //output[newpos + 3] = bmp[bmpos + 0]; //A
       }
     }
   }
