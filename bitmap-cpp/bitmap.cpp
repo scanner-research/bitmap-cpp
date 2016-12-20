@@ -1,7 +1,10 @@
 #include "bitmap.h"
+#include "bmp_transform/bitmap_transformer.h"
 #include <stdio.h>
 
 namespace bitmap {
+
+#define USE_HALIDE
 
 static const unsigned MINHEADER = 54; //minimum BMP header size
 
@@ -57,6 +60,33 @@ DecodeResult bitmap_decode(const unsigned char* bmp, size_t size,
     return DecodeResult::Invalid;//BMP file too small to contain all pixels
   }
 
+#ifdef USE_HALIDE
+  buffer_t input_buf = {0}, output_buf = {0};
+
+  input_buf.host = (uint8_t*) bmp;
+  input_buf.stride[0] = 4;
+  input_buf.stride[1] = w * 4;
+  input_buf.stride[2] = 1;
+  input_buf.extent[0] = w;
+  input_buf.extent[1] = h;
+  input_buf.extent[2] = 4;
+  input_buf.elem_size = 1;
+
+  output_buf.host = output;
+  output_buf.stride[0] = 1;
+  output_buf.stride[1] = w;
+  output_buf.stride[2] = w * h;
+  output_buf.extent[0] = w;
+  output_buf.extent[1] = h;
+  output_buf.extent[2] = 3;
+  output_buf.elem_size = 1;
+
+  int error = bitmap_transformer(&input_buf, &output_buf);
+  if (error != 0) {
+    printf("Halide error: %d\n", error);
+    exit(EXIT_FAILURE);
+  }
+#else
   /*
   There are 3 differences between BMP and the raw image buffer for LodePNG:
   -it's upside down
@@ -86,6 +116,7 @@ DecodeResult bitmap_decode(const unsigned char* bmp, size_t size,
       }
     }
   }
+#endif
 
   return DecodeResult::Success;
 }
