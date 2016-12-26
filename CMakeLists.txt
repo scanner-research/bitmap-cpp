@@ -63,8 +63,10 @@ install(TARGETS bitmapcpp
   EXPORT BitmapCppTarget
   ARCHIVE DESTINATION lib)
 
-set(BITMAPCPP_LIBRARY "${CMAKE_INSTALL_PREFIX}/lib/libbitmapcpp.a")
-set(BITMAPCPP_LIBRARIES ${CUSTOM_LIBRARIES})
+set(BITMAPCPP_LIBRARY
+  "${CMAKE_INSTALL_PREFIX}/lib/libbitmapcpp.a"
+  "${CMAKE_INSTALL_PREFIX}/lib/bitmap_transformer.a")
+set(BITMAPCPP_LIBRARIES ${BITMAPCPP_LIBRARY})
 
 configure_file(cmake/BitmapCppConfig.cmake.in
   "${PROJECT_BINARY_DIR}/cmake/BitmapCppConfig.cmake" @ONLY)
