@@ -1,5 +1,5 @@
 #include "bitmap.h"
-#include "bmp_transform/bitmap_transformer.h"
+#include "bitmap_transformer/bitmap_transformer.h"
 #include <stdio.h>
 
 namespace bitmap {
