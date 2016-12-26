@@ -14,13 +14,13 @@ public:
     Func foo("foo");
     foo(x, y, c) = input(x, y, c);
 
+    input
+      .set_stride(0, 3)
+      .set_stride(2, 1);
+
     Target target = Halide::get_target_from_environment();
     Pipeline p(foo);
     p.auto_schedule(target);
-
-    input
-      .set_stride(0, 4)
-      .set_stride(2, 1);
 
     return foo;
   }

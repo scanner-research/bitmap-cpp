@@ -64,12 +64,12 @@ DecodeResult bitmap_decode(const unsigned char* bmp, size_t size,
   buffer_t input_buf = {0}, output_buf = {0};
 
   input_buf.host = (uint8_t*) bmp;
-  input_buf.stride[0] = 4;
-  input_buf.stride[1] = w * 4;
+  input_buf.stride[0] = 3;
+  input_buf.stride[1] = scanlineBytes;
   input_buf.stride[2] = 1;
   input_buf.extent[0] = w;
   input_buf.extent[1] = h;
-  input_buf.extent[2] = 4;
+  input_buf.extent[2] = 3;
   input_buf.elem_size = 1;
 
   output_buf.host = output;
