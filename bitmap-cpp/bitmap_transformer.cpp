@@ -18,6 +18,10 @@ public:
     Pipeline p(foo);
     p.auto_schedule(target);
 
+    input
+      .set_stride(0, 4)
+      .set_stride(2, 1);
+
     return foo;
   }
 };
