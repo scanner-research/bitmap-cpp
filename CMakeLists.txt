@@ -74,8 +74,10 @@ configure_file(cmake/BitmapCppConfig.cmake.in
 install(FILES "${PROJECT_BINARY_DIR}/cmake/BitmapCppConfig.cmake"
   DESTINATION cmake)
 
-# install(EXPORT BitmapCppTarget
-#   DESTINATION cmake)
+# Not sure what this does, but it stops CMake from complaining.
+set_property(TARGET bitmapcpp PROPERTY INTERFACE_INCLUDE_DIRECTORIES "")
+install(EXPORT BitmapCppTarget
+  DESTINATION cmake)
 
 install(DIRECTORY bitmap-cpp/ DESTINATION include/bitmap-cpp
   FILES_MATCHING PATTERN "*.h")
