@@ -32,9 +32,9 @@ macro(add_halide_target SRC TARGET)
   list(APPEND HALIDE_TARGETS ${NAME})
 endmacro()
 
-add_halide_target(bitmap-cpp/bmp_transform.cpp host)
+add_halide_target(bitmap-cpp/bitmap_transformer.cpp host)
 
-file(GLOB_RECURSE SRC RELATIVE ${PROJECT_SOURCE_DIR} bitmap-cpp/*.cpp)
+file(GLOB_RECURSE SRC RELATIVE ${PROJECT_SOURCE_DIR} bitmap-cpp/bitmap.cpp)
 file(GLOB_RECURSE HEADERS RELATIVE ${PROJECT_SOURCE_DIR} bitmap-cpp/*.h)
 
 macro(add_deps)
@@ -42,6 +42,8 @@ macro(add_deps)
     add_dependencies(${targetName} "${HALIDE_TARGET}.exec_generator")
     target_include_directories(${targetName} PUBLIC
       "${PROJECT_BINARY_DIR}/generator_genfiles")
+    install(FILES "${PROJECT_BINARY_DIR}/generator_genfiles/${HALIDE_TARGET}/${HALIDE_TARGET}.a"
+      DESTINATION lib)
   endforeach()
 endmacro()
 
