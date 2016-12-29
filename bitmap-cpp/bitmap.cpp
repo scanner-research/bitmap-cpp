@@ -81,7 +81,7 @@ DecodeResult bitmap_decode(const unsigned char* bmp, size_t size,
   output_buf.extent[2] = 3;
   output_buf.elem_size = 1;
 
-  int error = bitmap_transformer(&input_buf, &output_buf);
+  int error = bitmap_transformer(&input_buf, w, h, &output_buf);
   if (error != 0) {
     printf("Halide error: %d\n", error);
     exit(EXIT_FAILURE);
