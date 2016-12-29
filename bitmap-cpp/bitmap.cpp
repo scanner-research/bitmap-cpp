@@ -4,7 +4,7 @@
 
 namespace bitmap {
 
-#define USE_HALIDE
+//#define USE_HALIDE
 
 static const unsigned MINHEADER = 54; //minimum BMP header size
 

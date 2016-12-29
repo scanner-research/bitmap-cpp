@@ -2,6 +2,11 @@
 #include <fstream>
 #include <sstream>
 #include <assert.h>
+#include <iostream>
+#include <chrono>
+
+using namespace std::chrono;
+typedef high_resolution_clock t;
 
 int main() {
   std::ifstream input_file("input.bmp", std::ios::binary);
@@ -15,6 +20,9 @@ int main() {
   bitmap::bitmap_metadata(input, size, metadata);
 
   unsigned char* output = new uint8_t[metadata.width * metadata.height * 3];
+  auto start = t::now();
   bitmap::DecodeResult result = bitmap::bitmap_decode(input, size, output);
+  auto duration = duration_cast<nanoseconds>(t::now() - start).count();
+  printf("%.3fms\n", duration / 1000000.);
   assert(result == bitmap::DecodeResult::Success);
 }
