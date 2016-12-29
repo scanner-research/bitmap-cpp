@@ -15,8 +15,14 @@ public:
     foo(x, y, c) = input(x, y, c);
 
     input
-      .set_stride(0, 3)
-      .set_stride(2, 1);
+      .dim(0).set_stride(3)
+      .dim(2).set_stride(1)
+      .dim(2).set_bounds(0, 3);
+
+    foo.output_buffer()
+      .dim(0).set_stride(3)
+      .dim(2).set_stride(1)
+      .dim(2).set_bounds(0, 3);
 
     Target target = Halide::get_target_from_environment();
     Pipeline p(foo);

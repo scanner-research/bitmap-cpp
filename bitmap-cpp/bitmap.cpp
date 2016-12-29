@@ -73,9 +73,9 @@ DecodeResult bitmap_decode(const unsigned char* bmp, size_t size,
   input_buf.elem_size = 1;
 
   output_buf.host = output;
-  output_buf.stride[0] = 1;
-  output_buf.stride[1] = w;
-  output_buf.stride[2] = w * h;
+  output_buf.stride[0] = 3;
+  output_buf.stride[1] = w * 3;
+  output_buf.stride[2] = 1;
   output_buf.extent[0] = w;
   output_buf.extent[1] = h;
   output_buf.extent[2] = 3;
